@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const graphqlHTTP = require('express-graphql');
 const ssbClient = require('ssb-party');
 
@@ -16,7 +17,7 @@ ssbClient({ party: {
   }
 
   console.log('Starting GraphQL server...');
-  app.use('/graphql', graphqlHTTP({
+  app.use('/graphql', cors(), graphqlHTTP({
     schema,
     context: { sbot },
     graphiql: true,

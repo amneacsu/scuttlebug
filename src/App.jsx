@@ -1,9 +1,17 @@
 import React from 'react';
-import css from './App.css';
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo';
+import HelloWorld from './HelloWorld';
+
+const client = new ApolloClient({
+  uri: 'http://localhost:3040/graphql',
+});
 
 const App = () => {
   return (
-    <div className={css.App}>Hello, world!</div>
+    <ApolloProvider client={client}>
+      <HelloWorld />
+    </ApolloProvider>
   );
 };
 
