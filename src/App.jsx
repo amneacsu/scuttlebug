@@ -4,7 +4,7 @@ import { ApolloProvider } from 'react-apollo';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Home from './views/Home';
-import All from './views/All';
+import Feed from './views/Feed';
 import RouteNav from './modules/RouteNav';
 import './App.css';
 
@@ -20,7 +20,7 @@ const App = () => {
           <RouteNav />
 
           <Route exact path="/" component={Home}/>
-          <Route exact path="/all" component={All}/>
+          <Route exact path="/all" component={Feed}/>
         </div>
       </Router>
     </ApolloProvider>
