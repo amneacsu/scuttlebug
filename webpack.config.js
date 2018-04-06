@@ -1,4 +1,5 @@
 module.exports = {
+  devtool: 'eval',
   mode: 'development',
   output: {
     filename: 'bundle.js',
