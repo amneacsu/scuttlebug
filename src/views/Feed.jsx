@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -37,69 +37,80 @@ const ReadFeed = gql`
 
 const COUNT = 10;
 
-const Feed = ({ id }) => (
-  <div>
-    <Query query={ReadFeed} variables={{ id, limit: COUNT }}>
-      {({ data, loading, error, fetchMore }) => {
-        if (loading) {
-          return 'loading...';
+class Feed extends Component {
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+  }
+
+  fetchMore = (fetcher, after) => {
+    return fetcher({
+      variables: {
+        lt: after,
+        limit: COUNT,
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult) {
+          return prev;
         }
 
-        if (error) {
-          console.log(error);
-          return error.message;
-        }
+        return {
+          ...prev,
+          feed: {
+            ...prev.feed,
+            messages: [
+              ...prev.feed.messages,
+              ...fetchMoreResult.feed.messages,
+            ],
+          },
+        };
+      },
+    });
+  }
 
-        if (!data.feed) {
-          return null;
-        }
+  render() {
+    const { id } = this.props;
 
-        const last = data.feed.messages[data.feed.messages.length - 1];
+    return (
+      <Query query={ReadFeed} variables={{ id, limit: COUNT }}>
+        {({ data, loading, error, fetchMore }) => {
+          if (loading) {
+            return 'loading...';
+          }
 
-        return (
-          <div>
-            {data.feed.messages.map((message, index) => (
-              <Message
-                key={index}
-                {...message}
-              />
-            ))}
-            <button onClick={() => {
-              fetchMore({
-                variables: {
-                  lt: last.sequence,
-                  limit: COUNT,
-                },
-                updateQuery: (prev, { fetchMoreResult }) => {
-                  if (!fetchMoreResult) return prev;
+          if (error) {
+            console.log(error);
+            return error.message;
+          }
 
-                  console.log(prev);
-                  console.log(fetchMoreResult);
+          if (!data.feed) {
+            return null;
+          }
 
-                  return {
-                    ...prev,
-                    feed: {
-                      ...prev.feed,
-                      messages: [
-                        ...prev.feed.messages,
-                        ...fetchMoreResult.feed.messages,
-                      ],
-                    },
-                  };
-                },
-              });
-            }}>
-              fetch more
-            </button>
-          </div>
-        );
-      }}
-    </Query>
-  </div>
-);
+          return (
+            <div>
+              {data.feed.messages.map((message, index) => (
+                <Message
+                  key={index}
+                  {...message}
+                />
+              ))}
 
-Feed.propTypes = {
-  id: PropTypes.string.isRequired,
-};
+              <br /><br />
+
+              <button onClick={() => {
+                const last = data.feed.messages[data.feed.messages.length - 1];
+                this.fetchMore(fetchMore, last.sequence);
+              }}>
+                fetch more
+              </button>
+
+              <br /><br />
+            </div>
+          );
+        }}
+      </Query>
+    );
+  }
+}
 
 export default Feed;

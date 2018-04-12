@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
-import Content from './Content';
-import css from './Message.css';
+import Content from '../Content';
+import css from './index.css';
 
 const Message = (props) => {
   const {

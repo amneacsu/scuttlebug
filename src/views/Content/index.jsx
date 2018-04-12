@@ -16,12 +16,8 @@ const Content = ({
     case 'post':
       return data.text;
 
-    case 'blob':
-      console.log(data);
-      return data.data;
-
     default:
-      return <div>unk</div>;
+      return null;
   }
 };
 
