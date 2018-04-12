@@ -5,7 +5,6 @@ const ssbClient = require('ssb-party');
 
 const PORT = 3040;
 const schema = require('./schema');
-const app = express();
 
 console.log('Starting ssb client...');
 
@@ -17,6 +16,8 @@ ssbClient({ party: {
   }
 
   console.log('Starting GraphQL server...');
+
+  const app = express();
   app.use('/graphql', cors(), graphqlHTTP({
     schema,
     context: { sbot },
@@ -24,5 +25,8 @@ ssbClient({ party: {
   }));
 
   console.log(`Server listening on port ${PORT}...`);
-  app.listen(PORT);
+  app.listen(PORT).on('error', (error) => {
+    console.error(error.message);
+    process.exit(1);
+  });
 });

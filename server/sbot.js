@@ -35,6 +35,10 @@ const getFeedItems = (args, sbot) => new Promise((resolve, reject) => {
 });
 
 const getLinks = ({ source, dest, rel }, sbot) => new Promise((resolve, reject) => {
+  if (!ref.isFeedId(source)) {
+    reject(new Error(`${source} is not a valid feed ID`));
+  }
+
   pull(
     sbot.links({ source, dest, rel, values: true }),
     pull.collect((err, msgs) => {
@@ -48,7 +52,7 @@ const getLinks = ({ source, dest, rel }, sbot) => new Promise((resolve, reject) 
 });
 
 const getMessage = (id, sbot) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     sbot.get(id, (err, data) => {
       resolve({ key: id, ...data });
     });
@@ -61,4 +65,4 @@ module.exports = {
   getFeedItems,
   getLinks,
   getMessage,
-}
+};
