@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
@@ -25,13 +26,16 @@ const ReadFeed = gql`
           ... on PostMessage {
             text
           }
+          ... on EncryptedMessage {
+            data
+          }
         }
       }
     }
   }
 `;
 
-const COUNT = 3;
+const COUNT = 10;
 
 const Feed = ({ id }) => (
   <div>
@@ -93,5 +97,9 @@ const Feed = ({ id }) => (
     </Query>
   </div>
 );
+
+Feed.propTypes = {
+  id: PropTypes.string.isRequired,
+};
 
 export default Feed;

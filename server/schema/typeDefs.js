@@ -54,12 +54,7 @@ module.exports = `
     message: Message!
   }
 
-  union MessageContent = UnhandledMessage | AboutMessage | ChannelMessage | ContactMessage | PostMessage | PubMessage | VoteMessage | DataMessage
-
-  type UnhandledMessage {
-    feed: Feed!
-    data: String
-  }
+  union MessageContent = AboutMessage | ChannelMessage | ContactMessage | PostMessage | PubMessage | VoteMessage | EncryptedMessage
 
   type AboutMessage {
     feed: Feed!
@@ -95,7 +90,7 @@ module.exports = `
     expression: String
   }
 
-  type DataMessage {
+  type EncryptedMessage {
     data: String
   }
 `;

@@ -30,17 +30,15 @@ module.exports = {
   },
 
   Message: {
-    type: (obj) => obj.content.type || 'data',
+    type: (obj) => {
+      return obj.content.type || 'encrypted';
+    },
     feed: (obj, args, { sbot }) => getFeedInfo(obj.author, sbot),
     links: (obj, args, { sbot }) => getLinks({ dest: obj.key, rel: args.rel }, sbot),
   },
 
-  UnhandledMessage: {
-    __isTypeOf: (obj) => ['data', 'about', 'channel', 'contact', 'post', 'pub'].indexOf(obj.type) === -1,
-  },
-
-  DataMessage: {
-    __isTypeOf: (obj) => obj.type === undefined,
+  EncryptedMessage: {
+    __isTypeOf: (obj) => typeof obj === 'string',
     data: (obj) => obj,
   },
 

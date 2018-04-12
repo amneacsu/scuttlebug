@@ -16,8 +16,12 @@ const Content = ({
     case 'post':
       return data.text;
 
+    case 'blob':
+      console.log(data);
+      return data.data;
+
     default:
-      return <div>type: {type}</div>;
+      return <div>unk</div>;
   }
 };
 
