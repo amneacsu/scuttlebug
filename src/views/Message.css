@@ -1,0 +1,9 @@
+.Message {
+  padding: 12px;
+  border: #ddd 2px solid;
+  border-radius: 2px;
+}
+
+.Message + .Message {
+  margin-top: 12px;
+}

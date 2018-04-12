@@ -22,6 +22,8 @@ const getFeedItems = (args, sbot) => new Promise((resolve, reject) => {
     reject(new Error(`${id} is not a valid feed ID`));
   }
 
+  console.log(args);
+
   pull(
     sbot.createUserStream(args),
     pull.collect((err, msgs) => {
@@ -29,7 +31,10 @@ const getFeedItems = (args, sbot) => new Promise((resolve, reject) => {
         reject(err);
       }
 
-      resolve(msgs.map(msg => ({ key: msg.key, ...msg.value })));
+      resolve(msgs.map(msg => {
+        // console.log(msg);
+        return ({ key: msg.key, ...msg.value });
+      }));
     }),
   );
 });

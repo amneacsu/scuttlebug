@@ -10,7 +10,14 @@ module.exports = `
     id: ID!
     name: String
     description: String
-    messages(limit: Int, reverse: Boolean): [Message]
+    messages(
+      gt: Int
+      gte: Int
+      lt: Int
+      lte: Int
+      limit: Int
+      reverse: Boolean
+    ): [Message]
   }
 
   type Address {
@@ -47,7 +54,12 @@ module.exports = `
     message: Message!
   }
 
-  union MessageContent = AboutMessage | ChannelMessage | ContactMessage | PostMessage | PubMessage | VoteMessage | DataMessage
+  union MessageContent = UnhandledMessage | AboutMessage | ChannelMessage | ContactMessage | PostMessage | PubMessage | VoteMessage | DataMessage
+
+  type UnhandledMessage {
+    feed: Feed!
+    data: String
+  }
 
   type AboutMessage {
     feed: Feed!

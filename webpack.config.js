@@ -6,7 +6,9 @@ module.exports = {
   },
   devServer: {
     contentBase: './dist',
-    historyApiFallback: true,
+    historyApiFallback: {
+      disableDotRule: true,
+    },
   },
   module: {
     rules: [

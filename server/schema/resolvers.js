@@ -18,8 +18,9 @@ module.exports = {
     messages: (obj, args, { sbot }) => {
       return getFeedItems({
         id: obj.id,
+        ...args,
         limit: args.limit || 10,
-        reverse: args.reverse,
+        reverse: args.reverse === undefined ? true : args.reverse,
       }, sbot);
     },
   },
@@ -32,6 +33,10 @@ module.exports = {
     type: (obj) => obj.content.type || 'data',
     feed: (obj, args, { sbot }) => getFeedInfo(obj.author, sbot),
     links: (obj, args, { sbot }) => getLinks({ dest: obj.key, rel: args.rel }, sbot),
+  },
+
+  UnhandledMessage: {
+    __isTypeOf: (obj) => ['data', 'about', 'channel', 'contact', 'post', 'pub'].indexOf(obj.type) === -1,
   },
 
   DataMessage: {

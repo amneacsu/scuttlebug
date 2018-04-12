@@ -6,6 +6,9 @@ export default {
         "name": "MessageContent",
         "possibleTypes": [
           {
+            "name": "UnhandledMessage",
+          },
+          {
             "name": "AboutMessage",
           },
           {
