@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import Message from './Message';
+import Message, { MessageFragment } from './Message';
 
 const ReadFeed = gql`
   query ReadFeed($id: ID!, $limit: Int, $lt: Int) {
@@ -13,17 +12,17 @@ const ReadFeed = gql`
       }
     }
   }
-  ${Message.fragment}
+  ${MessageFragment}
 `;
 
 const COUNT = 10;
 
-class Feed extends Component {
-  static propTypes = {
-    id: PropTypes.string.isRequired,
-  }
+export interface Props {
+  id: string,
+};
 
-  fetchMore = (fetcher, after) => {
+class Feed extends React.Component<Props> {
+  fetchMore = (fetcher: Function, after: number): Promise<object> => {
     return fetcher({
       variables: {
         lt: after,

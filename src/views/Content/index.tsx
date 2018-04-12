@@ -1,9 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import gql from 'graphql-tag';
 
-import ContactMessage from './ContactMessage';
-import PostMessage from './PostMessage';
+import ContactMessage, { ContactMessageFragment } from './ContactMessage';
+import PostMessage, { PostMessageFragment } from './PostMessage';
 
 const typeMap = {
   contact: ContactMessage,
@@ -23,12 +22,7 @@ const Content = ({
   return <MessageComponent {...data} />;
 };
 
-Content.propTypes = {
-  type: PropTypes.string.isRequired,
-  data: PropTypes.object,
-};
-
-Content.fragment = gql`
+export const ContentFragment = gql`
   fragment ContentFragment on MessageContent {
     ...ContactMessageFragment
     ...PostMessageFragment
@@ -36,8 +30,8 @@ Content.fragment = gql`
       data
     }
   }
-  ${ContactMessage.fragment}
-  ${PostMessage.fragment}
+  ${ContactMessageFragment}
+  ${PostMessageFragment}
 `;
 
 export default Content;

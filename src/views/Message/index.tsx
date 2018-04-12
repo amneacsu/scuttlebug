@@ -1,15 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { format } from 'date-fns';
 import gql from 'graphql-tag';
-import Content from '../Content';
-import css from './index.css';
+import Content, { ContentFragment } from '../Content';
+const css = require('./index.css');
 
-const Message = (props) => {
+export interface Props {
+  sequence: number,
+  timestamp: number,
+  content: any,
+  type: string,
+  feed: {
+    name: string,
+  },
+};
+
+const Message = (props: Props) => {
   const {
     sequence,
     timestamp,
     type,
+    content,
     feed,
   } = props;
 
@@ -29,22 +39,14 @@ const Message = (props) => {
       </div>
 
       <Content
-        type={props.type}
-        data={props.content}
+        type={type}
+        data={content}
       />
     </div>
   );
 };
 
-Message.propTypes = {
-  sequence: PropTypes.number.isRequired,
-  timestamp: PropTypes.number.isRequired,
-  type: PropTypes.string.isRequired,
-  content: PropTypes.any,
-  feed: PropTypes.object.isRequired,
-};
-
-Message.fragment = gql`
+export const MessageFragment = gql`
   fragment MessageFragment on Message {
     sequence
     timestamp
@@ -56,7 +58,7 @@ Message.fragment = gql`
       ...ContentFragment
     }
   }
-  ${Content.fragment}
+  ${ContentFragment}
 `;
 
 export default Message;

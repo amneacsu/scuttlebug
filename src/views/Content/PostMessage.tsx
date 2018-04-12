@@ -1,18 +1,18 @@
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 
+export interface Props {
+  text: string,
+};
+
 const PostMessage = ({
   text,
-}) => {
-  return text;
+}: Props) => {
+  return <span>{text}</span>;
 };
 
-PostMessage.propTypes = {
-  text: PropTypes.string.isRequired,
-};
-
-PostMessage.fragment = gql`
+export const PostMessageFragment = gql`
   fragment PostMessageFragment on PostMessage {
     ... on PostMessage {
       text

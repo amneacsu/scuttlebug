@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
 import gql from 'graphql-tag';
 
@@ -13,11 +12,7 @@ const ContactMessage = ({
   );
 };
 
-ContactMessage.propTypes = {
-  contact: PropTypes.object.isRequired,
-};
-
-ContactMessage.fragment = gql`
+export const ContactMessageFragment = gql`
   fragment ContactMessageFragment on ContactMessage {
     ... on ContactMessage {
       contact {
