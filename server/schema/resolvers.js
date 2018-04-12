@@ -50,6 +50,10 @@ module.exports = {
     },
     feed: (obj, args, { sbot }) => getFeedInfo(obj.author, sbot),
     links: (obj, args, { sbot }) => getLinks({ dest: obj.key, rel: args.rel }, sbot),
+    data: (obj) => {
+      console.log(obj);
+      return JSON.stringify(obj, null, 2);
+    },
   },
 
   EncryptedMessage: {

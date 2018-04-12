@@ -13,9 +13,9 @@ const Profile = ({
   image,
 }: Props) => {
   return (
-    <div>
-      <div>Name: {name}</div>
-      <div>Description: {description}</div>
+    <div style={{ padding: 20 }}>
+      {name && <div>Name: {name}</div>}
+      {description && <div>Description: {description}</div>}
       {image && <img width={64} height={64} src={`http://localhost:3040/blob/${image}`} />}
     </div>
   );

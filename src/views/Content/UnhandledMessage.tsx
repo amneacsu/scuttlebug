@@ -1,5 +1,6 @@
 import * as React from 'react';
 import gql from 'graphql-tag';
+import Data from '../Data';
 
 export interface Props {
   data: string
@@ -9,7 +10,7 @@ const UnhandledMessage = ({
   data,
 }: Props) => {
   return (
-    <div style={{ whiteSpace: 'pre', fontFamily: 'monospace', border: '#888 1px solid', padding: 10 }}>{data}</div>
+    <Data>{data}</Data>
   );
 };
 

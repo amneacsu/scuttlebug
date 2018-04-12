@@ -6,10 +6,20 @@ export interface Props {
   text: string,
 };
 
+const style = {
+  fontSize: 14,
+  color: '#666',
+  borderLeft: '#aaa 3px solid',
+  paddingLeft: 12,
+  lineHeight: '145%',
+};
+
 const PostMessage = ({
   text,
 }: Props) => {
-  return <span>{text}</span>;
+  return (
+    <p style={style}>{text}</p>
+  );
 };
 
 export const PostMessageFragment = gql`

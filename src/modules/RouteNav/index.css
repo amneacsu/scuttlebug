@@ -1,4 +1,10 @@
+.RouteNav {
+  padding: 0;
+}
+
 .RouteNav li {
   display: inline-block;
   margin: 0 4px;
+  background: #999;
+  padding: 4px 30px;
 }

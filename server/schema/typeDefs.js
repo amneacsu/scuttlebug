@@ -51,6 +51,7 @@ module.exports = `
     content: MessageContent
     type: String!
     links(rel: String): [Link]
+    data: String!
   }
 
   type Link {

@@ -1,8 +1,10 @@
 body {
+  padding: 30px;
   font-family: sans-serif;
   font-size: 12px;
+  background: #f4f4f4;
 }
 
 a {
-  text-decoration: none;
+  /* text-decoration: none; */
 }

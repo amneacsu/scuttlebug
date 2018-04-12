@@ -2,6 +2,7 @@ import * as React from 'react';
 import { format } from 'date-fns';
 import gql from 'graphql-tag';
 import Content, { ContentFragment } from '../Content';
+import Data from '../Data';
 const css = require('./index.css');
 
 export interface Props {
@@ -12,6 +13,7 @@ export interface Props {
   feed: {
     name: string,
   },
+  data?: string,
 };
 
 const Message = (props: Props) => {
@@ -21,27 +23,19 @@ const Message = (props: Props) => {
     type,
     content,
     feed,
+    data,
   } = props;
 
   return (
     <div className={css.Message}>
-      <div>
-        Sequence: {sequence}
-      </div>
-      <div>
-        Datetime: {format(timestamp, 'YYYY-MM-DD HH:mm:ss')}
-      </div>
-      <div>
-        Author: {feed.name || 'no name'}
-      </div>
-      <div>
-        type: {type}
-      </div>
-
       <Content
         type={type}
         data={content}
       />
+
+      <br />
+
+      <Data>{data}</Data>
     </div>
   );
 };
@@ -57,6 +51,7 @@ export const MessageFragment = gql`
     content {
       ...ContentFragment
     }
+    data
   }
   ${ContentFragment}
 `;
