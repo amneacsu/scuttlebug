@@ -81,5 +81,6 @@ module.exports = {
 
   UnhandledMessage: {
     __isTypeOf: () => true,
+    data: (obj) => JSON.stringify(obj),
   },
 };

@@ -15,7 +15,7 @@ const ReadFeed = gql`
   ${MessageFragment}
 `;
 
-const COUNT = 20;
+const COUNT = 200;
 
 export interface Props {
   id: string,
