@@ -45,6 +45,17 @@ module.exports = {
   AboutMessage: {
     __isTypeOf: (obj) => obj.type === 'about',
     feed: (obj, args, { sbot }) => getFeedInfo(obj.about, sbot),
+    image: (obj) => {
+      if (typeof obj.image === 'string') {
+        return obj.image;
+      }
+
+      if (typeof obj.image === 'object' && obj.image.link) {
+        return obj.image.link;
+      }
+
+      return null;
+    },
   },
 
   ChannelMessage: {
@@ -66,5 +77,9 @@ module.exports = {
 
   VoteMessage: {
     __isTypeOf: (obj) => obj.type === 'vote',
+  },
+
+  UnhandledMessage: {
+    __isTypeOf: () => true,
   },
 };

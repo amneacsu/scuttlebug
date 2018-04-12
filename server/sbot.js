@@ -67,10 +67,25 @@ const getMessage = (id, sbot) => {
   });
 };
 
+const getBlob = (id, sbot, cb) => {
+  sbot.blobs.want(id, (err) => {
+    if (err) cb(err);
+
+    pull(
+      sbot.blobs.get(id),
+      pull.collect(function (err, values) {
+        if (err) cb(err);
+        else cb(null, Buffer.concat(values));
+      })
+    );
+  });
+};
+
 module.exports = {
   getId,
   getFeedInfo,
   getFeedItems,
   getLinks,
   getMessage,
+  getBlob,
 };

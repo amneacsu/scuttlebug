@@ -54,11 +54,12 @@ module.exports = `
     message: Message!
   }
 
-  union MessageContent = AboutMessage | ChannelMessage | ContactMessage | PostMessage | PubMessage | VoteMessage | EncryptedMessage
+  union MessageContent = AboutMessage | ChannelMessage | ContactMessage | PostMessage | PubMessage | VoteMessage | EncryptedMessage | UnhandledMessage
 
   type AboutMessage {
     feed: Feed!
-    name: String!
+    name: String
+    image: String
   }
 
   type ChannelMessage {
@@ -91,6 +92,10 @@ module.exports = `
   }
 
   type EncryptedMessage {
+    data: String
+  }
+
+  type UnhandledMessage {
     data: String
   }
 `;
