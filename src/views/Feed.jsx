@@ -36,7 +36,16 @@ const Message = (props) => {
 const Feed = ({ id }) => (
   <div>
     <Query query={ReadFeed} variables={{ id }}>
-      {({ data }) => {
+      {({ data, loading, error }) => {
+        if (loading) {
+          return 'loading...';
+        }
+
+        if (error) {
+          console.log(error);
+          return error.message;
+        }
+
         if (!data.feed) {
           return null;
         }

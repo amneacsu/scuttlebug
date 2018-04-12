@@ -16,7 +16,9 @@ const App = () => {
           <RouteNav />
 
           <Route exact path="/" component={Home}/>
-          <Route exact path="/all" component={Feed}/>
+          <Route exact path="/feed/:id">
+            {({ match }) => (match !== null ? <Feed id={match.params.id} /> : null)}
+          </Route>
         </div>
       </Router>
     </ApolloProvider>

@@ -5,8 +5,8 @@ import css from './index.css';
 const RouteNav = () => {
   return (
     <ul className={css.RouteNav}>
-      <li><Link to="/">Home</Link></li>
-      <li><Link to="/all">All</Link></li>
+      <li><Link to="/">go to /</Link></li>
+      <li><Link to="/feed/1">go to /feed/1</Link></li>
     </ul>
   );
 };
