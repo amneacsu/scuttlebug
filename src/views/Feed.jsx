@@ -9,30 +9,11 @@ const ReadFeed = gql`
   query ReadFeed($id: ID!, $limit: Int, $lt: Int) {
     feed(id: $id) {
       messages(limit: $limit lt: $lt) {
-        sequence
-        timestamp
-        type
-        feed {
-          name
-        }
-        content {
-          ... on ContactMessage {
-            contact {
-              id
-              name
-              description
-            }
-          }
-          ... on PostMessage {
-            text
-          }
-          ... on EncryptedMessage {
-            data
-          }
-        }
+        ...MessageFragment
       }
     }
   }
+  ${Message.fragment}
 `;
 
 const COUNT = 10;

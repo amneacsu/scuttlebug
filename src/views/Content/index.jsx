@@ -1,24 +1,43 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import gql from 'graphql-tag';
+
+import ContactMessage from './ContactMessage';
+import PostMessage from './PostMessage';
+
+const typeMap = {
+  contact: ContactMessage,
+  post: PostMessage,
+};
 
 const Content = ({
   type,
   data,
 }) => {
-  switch (type) {
-    case 'contact':
-      return (
-        <Link to={`/feed/${data.contact.id}`}>
-          {data.contact.id}
-        </Link>
-      );
+  const MessageComponent = typeMap[type];
 
-    case 'post':
-      return data.text;
-
-    default:
-      return null;
+  if (!MessageComponent) {
+    return null;
   }
+
+  return <MessageComponent {...data} />;
 };
+
+Content.propTypes = {
+  type: PropTypes.string.isRequired,
+  data: PropTypes.object,
+};
+
+Content.fragment = gql`
+  fragment ContentFragment on MessageContent {
+    ...ContactMessageFragment
+    ...PostMessageFragment
+    ... on EncryptedMessage {
+      data
+    }
+  }
+  ${ContactMessage.fragment}
+  ${PostMessage.fragment}
+`;
 
 export default Content;

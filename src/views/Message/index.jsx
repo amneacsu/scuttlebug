@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
+import gql from 'graphql-tag';
 import Content from '../Content';
 import css from './index.css';
 
@@ -42,5 +43,20 @@ Message.propTypes = {
   content: PropTypes.any,
   feed: PropTypes.object.isRequired,
 };
+
+Message.fragment = gql`
+  fragment MessageFragment on Message {
+    sequence
+    timestamp
+    type
+    feed {
+      name
+    }
+    content {
+      ...ContentFragment
+    }
+  }
+  ${Content.fragment}
+`;
 
 export default Message;
