@@ -8,20 +8,35 @@ const {
 
 module.exports = {
   Query: {
-    feed: (obj, args, { sbot }) => getFeedInfo(args.id, sbot),
+    feed: (obj, args) => args.id,
     message: (obj, args, { sbot }) => getMessage(args.id, sbot),
     me: (obj, args, { sbot }) => getId(sbot).then((id) => getFeedInfo(id, sbot)),
     whoami: (obj, args, { sbot }) => getId(sbot),
   },
 
   Feed: {
+    profile: (obj, args, { sbot }) => getFeedInfo(obj, sbot),
     messages: (obj, args, { sbot }) => {
       return getFeedItems({
-        id: obj.id,
+        id: obj,
         ...args,
         limit: args.limit || 10,
         reverse: args.reverse === undefined ? true : args.reverse,
       }, sbot);
+    },
+  },
+
+  Profile: {
+    image: (obj) => {
+      if (typeof obj.image === 'string') {
+        return obj.image;
+      }
+
+      if (typeof obj.image === 'object' && obj.image.link) {
+        return obj.image.link;
+      }
+
+      return null;
     },
   },
 

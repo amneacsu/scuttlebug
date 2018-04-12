@@ -10,6 +10,7 @@ module.exports = `
     id: ID!
     name: String
     description: String
+    profile: Profile
     messages(
       gt: Int
       gte: Int
@@ -18,6 +19,12 @@ module.exports = `
       limit: Int
       reverse: Boolean
     ): [Message]
+  }
+
+  type Profile {
+    name: String
+    description: String
+    image: String
   }
 
   type Address {

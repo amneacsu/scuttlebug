@@ -3,19 +3,24 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import Message, { MessageFragment } from './Message';
+import Profile, { ProfileFragment } from './Profile';
 
 const ReadFeed = gql`
   query ReadFeed($id: ID!, $limit: Int, $lt: Int) {
     feed(id: $id) {
+      profile {
+        ...ProfileFragment
+      }
       messages(limit: $limit lt: $lt) {
         ...MessageFragment
       }
     }
   }
+  ${ProfileFragment}
   ${MessageFragment}
 `;
 
-const COUNT = 200;
+const COUNT = 20;
 
 export interface Props {
   id: string,
@@ -68,6 +73,7 @@ class Feed extends React.Component<Props> {
 
           return (
             <div>
+              <Profile {...data.feed.profile} />
               {data.feed.messages.map((message, index) => (
                 <Message
                   key={index}
