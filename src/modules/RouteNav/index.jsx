@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-const css = require('./index.css');
+import css from './index.css';
 
 const RouteNav = () => {
   return (

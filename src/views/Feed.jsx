@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
@@ -22,12 +23,12 @@ const ReadFeed = gql`
 
 const COUNT = 20;
 
-export interface Props {
-  id: string,
-};
+class Feed extends Component {
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+  }
 
-class Feed extends React.Component<Props> {
-  fetchMore = (fetcher: Function, after: number): Promise<object> => {
+  fetchMore = (fetcher, after) => {
     return fetcher({
       variables: {
         lt: after,

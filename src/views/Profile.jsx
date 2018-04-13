@@ -1,18 +1,13 @@
-import * as React from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import Blob from './Blob';
-
-export interface Props {
-  name?: string,
-  description?: string,
-  image?: string,
-};
 
 const Profile = ({
   name,
   description,
   image,
-}: Props) => {
+}) => {
   return (
     <div style={{ padding: 20 }}>
       {name && <div>Name: {name}</div>}
@@ -20,6 +15,12 @@ const Profile = ({
       {image && <Blob id={image} width={64} height={64} />}
     </div>
   );
+};
+
+Profile.propTypes = {
+  name: PropTypes.string,
+  description: PropTypes.string,
+  image: PropTypes.string,
 };
 
 export const ProfileFragment = gql`

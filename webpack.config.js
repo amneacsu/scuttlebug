@@ -18,11 +18,6 @@ module.exports = {
         loader: 'babel-loader',
       },
       {
-        test: /\.tsx?$/,
-        exclude: /node_modules/,
-        loader: 'ts-loader',
-      },
-      {
         test: /\.css$/,
         exclude: /node_modules/,
         use: [
@@ -39,6 +34,6 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['*', '.ts', '.tsx', '.js', '.jsx'],
+    extensions: ['*', '.js', '.jsx'],
   },
 };

@@ -1,10 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
-
-export interface Props {
-  text: string,
-};
 
 const style = {
   fontSize: 14,
@@ -16,10 +12,14 @@ const style = {
 
 const PostMessage = ({
   text,
-}: Props) => {
+}) => {
   return (
     <p style={style}>{text}</p>
   );
+};
+
+PostMessage.propTypes = {
+  text: PropTypes.string,
 };
 
 export const PostMessageFragment = gql`

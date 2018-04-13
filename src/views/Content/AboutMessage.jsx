@@ -1,19 +1,20 @@
-import * as React from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import Blob from '../Blob';
 
-export interface Props {
-  image?: string
-};
-
 const AboutMessage = ({
   image,
-}: Props) => {
+}) => {
   if (image === null) {
     return null;
   }
 
   return <Blob id={image} />;
+};
+
+AboutMessage.propTypes = {
+  image: PropTypes.string,
 };
 
 export const AboutMessageFragment = gql`
