@@ -6,6 +6,8 @@ import Data from '../Data';
 import Blob from '../Blob';
 import css from './index.css';
 
+import Debug from './Debug';
+
 const Message = (props) => {
   const {
     sequence,
@@ -29,7 +31,9 @@ const Message = (props) => {
 
       <br />
 
-      <Data>{data}</Data>
+      <Debug>
+        <Data>{data}</Data>
+      </Debug>
     </div>
   );
 };
