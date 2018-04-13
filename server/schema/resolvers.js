@@ -45,15 +45,10 @@ module.exports = {
   },
 
   Message: {
-    type: (obj) => {
-      return obj.content.type || 'encrypted';
-    },
-    feed: (obj, args, { sbot }) => getFeedInfo(obj.author, sbot),
+    type: (obj) => obj.content.type || 'encrypted',
+    feed: (obj) => obj.author,
     links: (obj, args, { sbot }) => getLinks({ dest: obj.key, rel: args.rel }, sbot),
-    data: (obj) => {
-      console.log(obj);
-      return JSON.stringify(obj, null, 2);
-    },
+    data: (obj) => JSON.stringify(obj, null, 2),
   },
 
   EncryptedMessage: {

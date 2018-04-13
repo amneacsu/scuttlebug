@@ -17,8 +17,6 @@ export const ContactMessageFragment = gql`
     ... on ContactMessage {
       contact {
         id
-        name
-        description
       }
     }
   }

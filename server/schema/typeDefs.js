@@ -8,8 +8,6 @@ module.exports = `
 
   type Feed {
     id: ID!
-    name: String
-    description: String
     profile: Profile
     messages(
       gt: Int

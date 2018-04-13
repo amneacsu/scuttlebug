@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 import gql from 'graphql-tag';
 import Content, { ContentFragment } from '../Content';
 import Data from '../Data';
+import Blob from '../Blob';
 const css = require('./index.css');
 
 export interface Props {
@@ -11,7 +12,10 @@ export interface Props {
   content: any,
   type: string,
   feed: {
-    name: string,
+    profile: {
+      name: string,
+      image: string,
+    },
   },
   data?: string,
 };
@@ -28,6 +32,10 @@ const Message = (props: Props) => {
 
   return (
     <div className={css.Message}>
+      {feed.profile.image && <div>
+        <Blob id={feed.profile.image} width={32} height={32} />
+      </div>}
+
       <Content
         type={type}
         data={content}
@@ -46,7 +54,10 @@ export const MessageFragment = gql`
     timestamp
     type
     feed {
-      name
+      profile {
+        name
+        image
+      }
     }
     content {
       ...ContentFragment

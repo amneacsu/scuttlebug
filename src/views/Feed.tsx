@@ -56,7 +56,10 @@ class Feed extends React.Component<Props> {
     const { id } = this.props;
 
     return (
-      <Query query={ReadFeed} variables={{ id, limit: COUNT }}>
+      <Query
+        query={ReadFeed}
+        variables={{ id, limit: COUNT }}
+      >
         {({ data, loading, error, fetchMore }) => {
           if (loading) {
             return 'loading...';

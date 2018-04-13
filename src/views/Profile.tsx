@@ -1,5 +1,6 @@
 import * as React from 'react';
 import gql from 'graphql-tag';
+import Blob from './Blob';
 
 export interface Props {
   name?: string,
@@ -16,7 +17,7 @@ const Profile = ({
     <div style={{ padding: 20 }}>
       {name && <div>Name: {name}</div>}
       {description && <div>Description: {description}</div>}
-      {image && <img width={64} height={64} src={`http://localhost:3040/blob/${image}`} />}
+      {image && <Blob id={image} width={64} height={64} />}
     </div>
   );
 };

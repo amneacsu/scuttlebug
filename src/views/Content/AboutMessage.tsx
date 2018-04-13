@@ -1,5 +1,6 @@
 import * as React from 'react';
 import gql from 'graphql-tag';
+import Blob from '../Blob';
 
 export interface Props {
   image?: string
@@ -12,11 +13,7 @@ const AboutMessage = ({
     return null;
   }
 
-  const url = `http://localhost:3040/blob/${image}`;
-
-  return (
-    <img src={url} />
-  );
+  return <Blob id={image} />;
 };
 
 export const AboutMessageFragment = gql`
