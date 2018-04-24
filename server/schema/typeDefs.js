@@ -1,6 +1,7 @@
 module.exports = `
   type Query {
     feed(id: ID!): Feed
+    channel(name: String!): Channel
     message(id: ID!): Message
     whoami: ID!
     me: Feed!
@@ -9,6 +10,17 @@ module.exports = `
   type Feed {
     id: ID!
     profile: Profile
+    messages(
+      gt: Int
+      gte: Int
+      lt: Int
+      lte: Int
+      limit: Int
+      reverse: Boolean
+    ): [Message]
+  }
+
+  type Channel {
     messages(
       gt: Int
       gte: Int

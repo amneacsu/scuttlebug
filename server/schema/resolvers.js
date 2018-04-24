@@ -2,6 +2,7 @@ const {
   getId,
   getFeedInfo,
   getFeedItems,
+  getChannelItems,
   getLinks,
   getMessage,
 } = require('../sbot');
@@ -9,6 +10,7 @@ const {
 module.exports = {
   Query: {
     feed: (obj, args) => args.id,
+    channel: (obj, args) => args.name,
     message: (obj, args, { sbot }) => getMessage(args.id, sbot),
     me: (obj, args, { sbot }) => getId(sbot).then((id) => getFeedInfo(id, sbot)),
     whoami: (obj, args, { sbot }) => getId(sbot),
@@ -19,6 +21,16 @@ module.exports = {
     messages: (obj, args, { sbot }) => {
       return getFeedItems({
         id: obj,
+        ...args,
+        limit: args.limit || 10,
+        reverse: args.reverse === undefined ? true : args.reverse,
+      }, sbot);
+    },
+  },
+
+  Channel: {
+    messages: (obj, args, { sbot }) => {
+      return getChannelItems(obj, {
         ...args,
         limit: args.limit || 10,
         reverse: args.reverse === undefined ? true : args.reverse,

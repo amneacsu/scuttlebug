@@ -42,6 +42,39 @@ const getFeedItems = (args, sbot) => new Promise((resolve, reject) => {
   );
 });
 
+const getChannelItems = (channel, args, sbot) => new Promise((resolve, reject) => {
+  const {
+    limit,
+  } = args;
+
+  let i = 0;
+
+  pull(
+    sbot.createFeedStream(),
+    pull.filter((msg) => {
+      i++;
+      if (msg.value.content && msg.value.content.channel) {
+        return msg.value.content.channel === channel;
+      }
+
+      return false;
+    }),
+    pull.take(limit),
+    pull.collect((err, msgs) => {
+      console.log(i);
+      resolve(msgs.map(msg => {
+        // if (typeof msg.value.content === 'string') {
+        //   sbot.private.unbox(msg.value.content, (err, result) => {
+        //     console.log(err);
+        //     console.log(result);
+        //   });
+        // }
+        return ({ key: msg.key, ...msg.value });
+      }));
+    }),
+  );
+});
+
 const getLinks = ({ source, dest, rel }, sbot) => new Promise((resolve, reject) => {
   if (!ref.isFeedId(source)) {
     reject(new Error(`${source} is not a valid feed ID`));
@@ -85,6 +118,7 @@ module.exports = {
   getId,
   getFeedInfo,
   getFeedItems,
+  getChannelItems,
   getLinks,
   getMessage,
   getBlob,
