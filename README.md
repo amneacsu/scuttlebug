@@ -1,3 +1,3 @@
 # scuttlebug
 
-(ssb)[https://www.scuttlebutt.nz/] to GraphQL adapter
+[ssb](https://www.scuttlebutt.nz/) to GraphQL adapter
