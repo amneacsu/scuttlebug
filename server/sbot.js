@@ -2,7 +2,7 @@ const pull = require('pull-stream');
 const ref = require('ssb-ref');
 
 const getId = (sbot) => new Promise((resolve, reject) => {
-  sbot.whoami((err, info) => { if (err) { reject(err); } resolve(info.id); });
+  sbot.whoami((err, info) => { if (err) { reject(err); } resolve(info); });
 });
 
 const getFeedInfo = (id, sbot) => {
@@ -76,10 +76,6 @@ const getChannelItems = (channel, args, sbot) => new Promise((resolve, reject) =
 });
 
 const getLinks = ({ source, dest, rel }, sbot) => new Promise((resolve, reject) => {
-  if (!ref.isFeedId(source)) {
-    reject(new Error(`${source} is not a valid feed ID`));
-  }
-
   pull(
     sbot.links({ source, dest, rel, values: true }),
     pull.collect((err, msgs) => {

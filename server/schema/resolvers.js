@@ -9,18 +9,18 @@ const {
 
 module.exports = {
   Query: {
-    feed: (obj, args) => args.id,
+    feed: (obj, args) => ({ id: args.id }),
     channel: (obj, args) => args.name,
     message: (obj, args, { sbot }) => getMessage(args.id, sbot),
-    me: (obj, args, { sbot }) => getId(sbot).then((id) => getFeedInfo(id, sbot)),
-    whoami: (obj, args, { sbot }) => getId(sbot),
+    me: (obj, args, { sbot }) => getId(sbot),
+    whoami: (obj, args, { sbot }) => getId(sbot).then((me) => me.id),
   },
 
   Feed: {
-    profile: (obj, args, { sbot }) => getFeedInfo(obj, sbot),
+    profile: (obj, args, { sbot }) => getFeedInfo(obj.id, sbot),
     messages: (obj, args, { sbot }) => {
       return getFeedItems({
-        id: obj,
+        id: obj.id,
         ...args,
         limit: args.limit || 10,
         reverse: args.reverse === undefined ? true : args.reverse,
@@ -58,7 +58,7 @@ module.exports = {
 
   Message: {
     type: (obj) => obj.content.type || 'encrypted',
-    feed: (obj) => obj.author,
+    feed: (obj) => ({ id: obj.author }),
     links: (obj, args, { sbot }) => getLinks({ dest: obj.key, rel: args.rel }, sbot),
     data: (obj) => JSON.stringify(obj, null, 2),
   },
@@ -70,7 +70,7 @@ module.exports = {
 
   AboutMessage: {
     __isTypeOf: (obj) => obj.type === 'about',
-    feed: (obj, args, { sbot }) => getFeedInfo(obj.about, sbot),
+    feed: (obj) => ({ id: obj.about }),
     image: (obj) => {
       if (typeof obj.image === 'string') {
         return obj.image;
@@ -90,7 +90,7 @@ module.exports = {
 
   ContactMessage: {
     __isTypeOf: (obj) => obj.type === 'contact',
-    contact: (obj, args, { sbot }) => getFeedInfo(obj.contact, sbot),
+    contact: (obj) => ({ id: obj.contact }),
   },
 
   PostMessage: {
